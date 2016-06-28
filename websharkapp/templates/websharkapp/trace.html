@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">{% load staticfiles %}
+  <head>
+    <meta charset="utf-8">
+    <title>webshark - {% block title %}free your cloulshark!{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'websharkapp/trace.css' %}">
+    <script src="{% static 'websharkapp/script.js' %}"></script>
+  </head>
+  <body>
+
+    <div id=header>
+      <p>
+	webshark &mdash; super_trace.pcap (42 packets) <a href="#">More info...</a>
+      </p>
+    </div>
+
+    <div id=listing>
+      <table>
+	<thead>
+	  <tr>
+	    <th>No.</th>
+	    <th>&bull;</th>
+	    <th>Time</th>
+	    <th>Source</th>
+	    <th>Destination</th>
+	    <th>Protocol</th>
+	    <th>Length</th>
+	    <th>Info</th>
+	  </tr>
+	</thead>
+	<tbody>
+	</tbody>
+      </table>
+    </div>
+
+    <div id=tree>
+      <p>tree block</p>
+    </div>
+
+    <div id=hex>
+      <pre>0000  10 40 f3 ae ed f8 58 6d 8f 56 30 09 08 00 45 20  .@....Xm.V0...E
+0010  00 34 1b 12 40 00 32 06 ae 06 d8 da e4 77 c0 a8  .4..@.2......w..
+0020  01 91 00 50 d8 c3 b3 0a 70 ca 42 86 ce df 80 10  ...P....p.B.....
+0030  00 72 c1 d9 00 00 01 01 08 0a 4f c3 6b d8 28 20  .r........O.k.(
+0040  42 db                                            B.</pre>
+    </div>
+
+  </body>
+</html>

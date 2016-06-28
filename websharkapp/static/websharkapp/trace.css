@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #552222;
+}
+
+#header {
+    background: #885555;
+}
+
+#listing {
+    background: #225522;
+}
+
+#tree {
+    background: #555588;
+}
+
+#hex {
+    background: #888888;
+}
