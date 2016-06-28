@@ -1,0 +1,10 @@
+
+body {
+    width: 800px;
+    margin: auto;
+    background-image: url('logo.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center top;
+    padding-top: 120px;
+}

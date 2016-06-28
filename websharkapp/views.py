@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("hello from webshark")
+    ctx = {'var': 42}
+    return render(request, 'websharkapp/index.html', ctx)
 
 def show_trace(request, trace_id_str):
     return HttpResponse("view trace %d page" % int(trace_id_str))

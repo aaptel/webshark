@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">{% load staticfiles %}
+  <head>
+    <meta charset="utf-8">
+    <title>webshark - {% block title %}free your cloulshark!{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'websharkapp/style.css' %}">
+    <script src="{% static 'websharkapp/script.js' %}"></script>
+  </head>
+  <body>
+    {% block body %}default{% endblock %}
+  </body>
+</html>
