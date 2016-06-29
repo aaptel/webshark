@@ -3,11 +3,11 @@
 from django.db import models
 
 class Trace(models.Model):
-    pub_date = models.DateField()
+    pub_date = models.DateField(auto_now_add=True)
     path = models.CharField(max_length=512)
     name = models.CharField(max_length=512)
     desc = models.TextField()
-    conf = models.TextField() # serialized python dict
+    conf = models.TextField() # persistent viewer conf in json
 
     def __str__(self):
         return self.path

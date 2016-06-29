@@ -1,0 +1,14 @@
+{% extends 'websharkapp/base.html' %}
+
+{% block title %}latest uploaded traces{% endblock %}
+
+{% block body %}
+{% if traces %}
+<ul>
+{% for t in traces %}
+<li><a href="%{ url 'show_trace' t.id %}">{{ t.name }}</a></li>
+{% endfor %}
+{% else %}
+<p>No trace uploaded yet.</p>
+{% endif %}
+{% endblock %}

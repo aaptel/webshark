@@ -1,0 +1,8 @@
+# empty file for the dir
+
+# ignore all traces
+*
+
+# except this file
+!.gitignore
+

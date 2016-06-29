@@ -7,6 +7,12 @@
     <script src="{% static 'websharkapp/script.js' %}"></script>
   </head>
   <body>
+    <div id=menu>
+      <ul>
+	<li><a href="{% url 'new_trace' %}" >upload new trace</a></li>
+	<li><a href="{% url 'latest_trace' %}" >latest uploaded traces</a></li>
+      </ul>
+    </div>
     {% block body %}default{% endblock %}
   </body>
 </html>

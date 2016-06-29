@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <title>webshark - {% block title %}free your cloulshark!{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'websharkapp/trace.css' %}">
-    <script src="{% static 'websharkapp/script.js' %}"></script>
   </head>
   <body>
 
     <div id=header>
       <p>
-	webshark &mdash; super_trace.pcap (42 packets) <a href="#">More info...</a>
+	webshark &mdash; <code>super_trace.pcap</code> (42 packets) <a href="#">More info...</a>
       </p>
     </div>
 
@@ -45,5 +44,11 @@
 0040  42 db                                            B.</pre>
     </div>
 
+    <script src="{% static 'websharkapp/jquery.min.js' %}"></script>
+    <script src="{% static 'websharkapp/script.js' %}"></script>
+    <script>
+      var TRACE_ID = {{ id }}
+      $(init_trace)
+    </script>
   </body>
 </html>
