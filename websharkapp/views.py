@@ -20,10 +20,10 @@ def data_info(req, trace_id_str):
     t = TraceViewer(tid)
     return JsonResponse(t.data_info())
 
-def data_packet_list(req, trace_id_str, start_id_str, end_id_str):
+def data_packet_list(req, trace_id_str, start_id_str, count_str):
     tid = int(trace_id_str)
     t = TraceViewer(tid)
-    return JsonResponse(t.data_packet_list(int(start_id_str, end_id_str)))
+    return JsonResponse(t.data_packet_list(int(start_id_str), int(count_str)))
 
 def new_trace(req):
     if req.method == 'POST':

@@ -11,11 +11,31 @@ class TraceViewer:
     def __init__(self, tid):
         self._data = models.Trace.objects.get(pk=tid)
         self.tid = tid
-        #
+        self.pub_date = self._data.pub_date
+
+        print("traceviewer loading...")
+
         # XXX: would be nice to somehow keep that object in memory as
         # we will probably load it often
+        self._packets = list(pyshark.FileCapture(trace_path(self._data.path)))
+        # XXX: tshark has 2 xml output format which pyshark uses
+        # - pmdl: trace with complete packet info
+        # - psdl: simpler trace with just the one-line summary display
+        #         in Wireshark packet list
         #
-        self._cap = pyshark.FileCapture(self._data.path())
+        # We need both and the packet summary is not in the pmdl format :(
+        self._summaries = list(pyshark.FileCapture(trace_path(self._data.path), only_summaries=True))
+        #self._cap_summaries = pyshark.FileCapture(trace_path(self._data.path), only_summaries=True)
+
+        # XXX: pyshark lazily loads the trace, we have to iterate over
+        # it to get the size
+        self.size = len(self._packets)
+
+        # This is extremely ineficient, we need something
+        # - that gives us both summary and packet info (eventually separately)
+        # - doesn't have to load the whole trace to get to a packet
+        # - keep them in memory so we dont load again at every requests
+        print("traceviewer created")
 
 
     def data_info(self):
@@ -24,22 +44,24 @@ class TraceViewer:
             'name': self._data.name,
             'desc': self._data.desc,
             'conf': self._data.conf,
-            'length': len(self._cap),
+            'length': self.size,
         }
         return r
 
-    def data_list(self, start, end):
-        r = {
-            'packets': [
-                ['10', '0.54566544', '192.168.0.1', '192.168.0.2', 'TCP', '42', 'Foobar baz zab zob zib'],
-                ['10', '0.54566544', '192.168.0.1', '192.168.0.2', 'TCP', '42', 'Foobar baz zab zob zib'],
-                ['10', '0.54566544', '192.168.0.1', '192.168.0.2', 'TCP', '42', 'Foobar baz zab zob zib'],
-                ['10', '0.54566544', '192.168.0.1', '192.168.0.2', 'TCP', '42', 'Foobar baz zab zob zib'],
-                ['10', '0.54566544', '192.168.0.1', '192.168.0.2', 'TCP', '42', 'Foobar baz zab zob zib'],
-            ]
-        }
-        return r
-
+    def data_packet_list(self, start, count):
+        r = []
+        stop = min(start+count, self.size)
+        for i in range(start, stop):
+            r.append([
+                self._summaries[i].no,
+                self._summaries[i].time,
+                self._summaries[i].source,
+                self._summaries[i].destination,
+                self._summaries[i].protocol,
+                self._summaries[i].length,
+                self._summaries[i].info,
+            ])
+        return {'packets': r}
 
 def store_to_tmp(upload):
     md5 = hashlib.md5()
